@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Newsreader:ital,wght@0,300;0,400;1,300&display=swap");
+
+.list-page-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.applicants-table-section {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 24px var(--shadow);
+  border: 1px solid var(--border);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table-header {
+  margin-bottom: 2rem;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.table-header h1 {
+  font-family: "Unbounded", sans-serif;
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin: 0;
+}
+
+.applicant-count {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.add-new-btn {
+  padding: 0.875rem 1.75rem;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-light) 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(232, 147, 92, 0.3);
+}
+
+.add-new-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(232, 147, 92, 0.4);
+}
+
+.table-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.875rem 3rem 0.875rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--background);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(232, 147, 92, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.filter-select {
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--background);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Table Styling */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.applicants-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+}
+
+.applicants-table thead {
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
+}
+
+.applicants-table th {
+  padding: 1rem;
+  text-align: left;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.applicants-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.applicants-table th.sortable:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sort-indicator {
+  opacity: 0.6;
+  font-size: 0.75rem;
+}
+
+.action-column {
+  width: 80px;
+  text-align: center;
+}
+
+.applicants-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+}
+
+.applicants-table tbody tr:hover {
+  background: var(--background);
+}
+
+.applicants-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.applicants-table td {
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.action-cell {
+  text-align: center;
+}
+
+.delete-table-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.delete-table-btn:hover {
+  opacity: 1;
+  background: rgba(196, 69, 54, 0.1);
+  transform: scale(1.1);
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem !important;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.table-footer {
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border);
+  text-align: center;
+}
+
+.table-footer p {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.3;
+}
+
+.empty-state h2 {
+  font-family: "Unbounded", sans-serif;
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.empty-add-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-light) 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(232, 147, 92, 0.3);
+}
+
+.empty-add-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(232, 147, 92, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .table-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .list-page-container {
+    padding: 1.5rem 1rem;
+    align-items: flex-start;
+    padding-top: 3rem;
+  }
+
+  .applicants-table-section {
+    padding: 1.5rem;
+  }
+
+  .table-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .applicants-table th,
+  .applicants-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .th-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

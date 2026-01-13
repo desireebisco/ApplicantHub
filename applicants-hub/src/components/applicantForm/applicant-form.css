@@ -1,0 +1,350 @@
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Newsreader:ital,wght@0,300;0,400;1,300&display=swap");
+
+:root {
+  --primary: #2d5a3d;
+  --primary-dark: #1e3d29;
+  --accent: #e8935c;
+  --accent-light: #f4b183;
+  --background: #faf8f4;
+  --surface: #ffffff;
+  --text: #2a2a2a;
+  --text-light: #6b6b6b;
+  --border: #d4cfc4;
+  --shadow: rgba(45, 90, 61, 0.08);
+  --shadow-hover: rgba(45, 90, 61, 0.15);
+  --success: #2d5a3d;
+  --danger: #c44536;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Newsreader", Georgia, serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Form Page Container */
+.form-page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form Section */
+.form-section {
+  width: 100%;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 4px 24px var(--shadow);
+  border: 1px solid var(--border);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 2rem;
+}
+
+.form-header h1 {
+  font-family: "Unbounded", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-light);
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Form Styling */
+.applicant-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group label {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--background);
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px rgba(232, 147, 92, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-light);
+  opacity: 0.6;
+}
+
+/* Custom Field Styling */
+.custom-field {
+  background: linear-gradient(
+    135deg,
+    rgba(232, 147, 92, 0.05) 0%,
+    rgba(45, 90, 61, 0.05) 100%
+  );
+  padding: 1rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--accent);
+  animation: slideIn 0.5s ease-out;
+}
+
+.remove-field-btn {
+  background: var(--danger);
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.remove-field-btn:hover {
+  background: #a03628;
+  transform: scale(1.1);
+}
+
+/* Add Field Section */
+.add-field-section {
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px dashed var(--border);
+  margin-top: 1rem;
+}
+
+.add-field-section h3 {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.add-field-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.field-name-input,
+.field-type-select {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 0.95rem;
+  background: var(--surface);
+  transition: all 0.2s ease;
+}
+
+.field-name-input:focus,
+.field-type-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.add-field-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-field-btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-hover);
+}
+
+.add-field-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Submit Button */
+.submit-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-light) 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 0 4px 16px rgba(232, 147, 92, 0.3);
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(232, 147, 92, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
+}
+
+/* View List Button */
+.view-list-btn {
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-list-btn:hover {
+  background: transparent;
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* Success Message */
+.success-message {
+  background: var(--success);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Unbounded", sans-serif;
+  font-weight: 600;
+  margin-top: 1rem;
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .form-page-container {
+    padding: 1.5rem 1rem;
+    align-items: flex-start;
+    padding-top: 3rem;
+  }
+
+  .form-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-header h1 {
+    font-size: 2rem;
+  }
+}
