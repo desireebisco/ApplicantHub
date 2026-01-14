@@ -18,6 +18,8 @@ export default function ApplicantFormPage() {
   const [newFieldName, setNewFieldName] = useState("");
   const [newFieldType, setNewFieldType] = useState("text");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   // Handle standard field changes
   const handleChange = (e) => {
@@ -37,26 +39,29 @@ export default function ApplicantFormPage() {
   };
 
   // Add new custom field
-  const handleAddCustomField = () => {
+  const handleAddCustomField = async () => {
     if (newFieldName.trim()) {
       const fieldId = newFieldName.toLowerCase().replace(/\s+/g, "_");
-      addCustomField({
+      const result = await addCustomField({
         id: fieldId,
         label: newFieldName,
         type: newFieldType,
       });
-      setFormData((prev) => ({
-        ...prev,
-        [fieldId]: "",
-      }));
-      setNewFieldName("");
-      setNewFieldType("text");
+
+      if (result.success) {
+        setFormData((prev) => ({
+          ...prev,
+          [fieldId]: "",
+        }));
+        setNewFieldName("");
+        setNewFieldType("text");
+      }
     }
   };
 
   // Remove custom field
-  const handleRemoveCustomField = (fieldId) => {
-    removeCustomField(fieldId);
+  const handleRemoveCustomField = async (fieldId) => {
+    await removeCustomField(fieldId);
     setFormData((prev) => {
       const newData = { ...prev };
       delete newData[fieldId];
@@ -65,24 +70,37 @@ export default function ApplicantFormPage() {
   };
 
   // Submit form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addApplicant(formData);
+    setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Reset form
-    const resetData = {
-      name: "",
-      address: "",
-      birthday: "",
-    };
-    customFields.forEach((field) => {
-      resetData[field.id] = "";
-    });
-    setFormData(resetData);
+    try {
+      const result = await addApplicant(formData);
 
-    // Show success message
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
+      if (result.success) {
+        // Reset form
+        const resetData = {
+          name: "",
+          address: "",
+          birthday: "",
+        };
+        customFields.forEach((field) => {
+          resetData[field.id] = "";
+        });
+        setFormData(resetData);
+
+        // Show success message
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 3000);
+      } else {
+        setSubmitError(result.error || "Failed to save applicant");
+      }
+    } catch (error) {
+      setSubmitError("An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -207,8 +225,8 @@ export default function ApplicantFormPage() {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn">
-            Save Applicant
+          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Applicant"}
           </button>
 
           <button
@@ -223,6 +241,8 @@ export default function ApplicantFormPage() {
         {showSuccess && (
           <div className="success-message">✓ Applicant added successfully!</div>
         )}
+
+        {submitError && <div className="error-message">✗ {submitError}</div>}
       </div>
     </div>
   );

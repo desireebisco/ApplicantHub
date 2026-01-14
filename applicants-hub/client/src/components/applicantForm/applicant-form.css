@@ -31,6 +31,7 @@ body {
 
 /* Form Page Container */
 .form-page-container {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
   padding: 3rem 2rem;
@@ -277,13 +278,19 @@ body {
   box-shadow: 0 4px 16px rgba(232, 147, 92, 0.3);
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(232, 147, 92, 0.4);
 }
 
-.submit-btn:active {
+.submit-btn:active:not(:disabled) {
   transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* View List Button */
@@ -311,6 +318,19 @@ body {
 /* Success Message */
 .success-message {
   background: var(--success);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Unbounded", sans-serif;
+  font-weight: 600;
+  margin-top: 1rem;
+  animation: slideDown 0.4s ease-out;
+}
+
+/* Error Message */
+.error-message {
+  background: var(--danger);
   color: white;
   padding: 1rem 1.5rem;
   border-radius: 10px;
