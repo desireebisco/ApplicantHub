@@ -5,7 +5,8 @@ import "./applicant-list-page.css";
 import { useApplicants } from "../../state/ApplicantContext";
 
 export default function ApplicantListPage() {
-  const { applicants, customFields, deleteApplicant } = useApplicants();
+  const { applicants, customFields, deleteApplicant, loading, error } =
+    useApplicants();
   const navigate = useNavigate();
 
   // Table controls
@@ -13,6 +14,7 @@ export default function ApplicantListPage() {
   const [sortField, setSortField] = useState("name");
   const [sortDirection, setSortDirection] = useState("asc");
   const [filterField, setFilterField] = useState("all");
+  const [isDeleting, setIsDeleting] = useState(null);
 
   // Sort handler
   const handleSort = (field) => {
@@ -69,9 +71,15 @@ export default function ApplicantListPage() {
     return result;
   }, [applicants, searchTerm, sortField, sortDirection, filterField]);
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this applicant?")) {
-      deleteApplicant(id);
+      setIsDeleting(id);
+      const result = await deleteApplicant(id);
+      setIsDeleting(null);
+
+      if (!result.success) {
+        alert("Failed to delete applicant: " + result.error);
+      }
     }
   };
 
@@ -117,7 +125,24 @@ export default function ApplicantListPage() {
           </div>
         </div>
 
-        {applicants.length === 0 ? (
+        {loading ? (
+          <div className="loading-state">
+            <div className="loading-spinner"></div>
+            <p>Loading applicants...</p>
+          </div>
+        ) : error ? (
+          <div className="error-state">
+            <div className="error-icon">⚠️</div>
+            <h2>Error Loading Data</h2>
+            <p>{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="retry-btn"
+            >
+              Retry
+            </button>
+          </div>
+        ) : applicants.length === 0 ? (
           <div className="empty-state">
             <div className="empty-icon">📋</div>
             <h2>No Applicants Yet</h2>
@@ -166,8 +191,9 @@ export default function ApplicantListPage() {
                             onClick={() => handleDelete(applicant.id)}
                             className="delete-table-btn"
                             title="Delete applicant"
+                            disabled={isDeleting === applicant.id}
                           >
-                            🗑️
+                            {isDeleting === applicant.id ? "⏳" : "🗑️"}
                           </button>
                         </td>
                         {allFields.map((field) => (

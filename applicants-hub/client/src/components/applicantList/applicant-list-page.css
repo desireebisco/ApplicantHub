@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Newsreader:ital,wght@0,300;0,400;1,300&display=swap");
 
 .list-page-container {
+  width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   padding: 3rem 2rem;
@@ -11,6 +12,7 @@
 }
 
 .applicants-table-section {
+  width: 100%;
   background: var(--surface);
   border-radius: 20px;
   padding: 2.5rem;
@@ -232,10 +234,15 @@
   opacity: 0.6;
 }
 
-.delete-table-btn:hover {
+.delete-table-btn:hover:not(:disabled) {
   opacity: 1;
   background: rgba(196, 69, 54, 0.1);
   transform: scale(1.1);
+}
+
+.delete-table-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
 }
 
 .no-results {
@@ -307,6 +314,84 @@
 .empty-add-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(232, 147, 92, 0.4);
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-state p {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Error State */
+.error-state {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.error-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-state h2 {
+  font-family: "Unbounded", sans-serif;
+  font-size: 2rem;
+  color: var(--danger);
+  margin-bottom: 0.5rem;
+}
+
+.error-state p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.retry-btn {
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+  background: transparent;
+  color: var(--primary);
+  transform: translateY(-2px);
 }
 
 /* Responsive Design */
