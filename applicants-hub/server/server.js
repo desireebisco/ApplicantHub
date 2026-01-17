@@ -1,18 +1,18 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import applicantsRoute from "./routes/applicants.route.js";
+import applicantRoutes from "./routes/applicants.route.js";
 
-dotenv.config();
 const app = express();
 
-app.use(cors());
+// Enable CORS
+app.use(cors({
+  origin: "http://localhost:5173", // <-- your React frontend URL
+  methods: ["GET","POST","PUT","DELETE"]
+}));
+
 app.use(express.json());
-app.use("/uploads", express.static("uploads")); // serve uploaded files
+app.use("/api/applicants", applicantRoutes);
 
-// Routes
-app.use("/api/applicants", applicantsRoute);
-
-app.listen(process.env.PORT, () =>
-  console.log(`Server running on port ${process.env.PORT}`)
-);
+app.listen(5050, () => {
+  console.log("Server running on port 5050");
+});
