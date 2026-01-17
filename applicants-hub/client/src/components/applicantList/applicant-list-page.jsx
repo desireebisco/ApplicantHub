@@ -40,7 +40,11 @@ export default function ApplicantListPage() {
   // Get all fields (standard + custom)
   const allFields = [
     { id: "name", label: "Name" },
-    { id: "address", label: "Address" },
+    { id: "street_address", label: "Street Address" },
+    { id: "barangay", label: "Barangay" },
+    { id: "city", label: "City" },
+    { id: "province", label: "Province" },
+    { id: "postal_code", label: "Postal Code" },
     { id: "birthday", label: "Birthday" },
     ...customFields,
   ];
@@ -308,7 +312,17 @@ export default function ApplicantListPage() {
                 {allFields.map((field) => (
                   <div key={field.id} className="edit-form-group">
                     <label htmlFor={`edit-${field.id}`}>{field.label}</label>
-                    {field.type === "textarea" ? (
+                    {field.id === "street_address" ? (
+                      <input
+                        type="text"
+                        id={`edit-${field.id}`}
+                        value={editFormData[field.id] || ""}
+                        onChange={(e) =>
+                          handleEditChange(field.id, e.target.value)
+                        }
+                        placeholder="House/Building No., Street Name"
+                      />
+                    ) : field.type === "textarea" ? (
                       <textarea
                         id={`edit-${field.id}`}
                         value={editFormData[field.id] || ""}

@@ -21,7 +21,11 @@ export default function ApplicantDetailPage() {
   // Get all fields (standard + custom)
   const allFields = [
     { id: "name", label: "Name", icon: "👤" },
-    { id: "address", label: "Address", icon: "📍" },
+    { id: "street_address", label: "Street Address", icon: "🏠" },
+    { id: "barangay", label: "Barangay", icon: "📍" },
+    { id: "city", label: "City/Municipality", icon: "🏙️" },
+    { id: "province", label: "Province", icon: "🗺️" },
+    { id: "postal_code", label: "Postal Code", icon: "📮" },
     { id: "birthday", label: "Birthday", icon: "🎂" },
     ...customFields.map((field) => ({ ...field, icon: "📝" })),
   ];

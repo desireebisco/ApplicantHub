@@ -11,7 +11,11 @@ export default function ApplicantFormPage() {
 
   const [formData, setFormData] = useState({
     name: "",
-    address: "",
+    street_address: "",
+    barangay: "",
+    city: "",
+    province: "",
+    postal_code: "",
     birthday: "",
   });
 
@@ -82,7 +86,11 @@ export default function ApplicantFormPage() {
         // Reset form
         const resetData = {
           name: "",
-          address: "",
+          street_address: "",
+          barangay: "",
+          city: "",
+          province: "",
+          postal_code: "",
           birthday: "",
         };
         customFields.forEach((field) => {
@@ -128,17 +136,77 @@ export default function ApplicantFormPage() {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="address">Address *</label>
-            <textarea
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-              placeholder="Enter complete address"
-              rows="3"
-            />
+          {/* Address Section */}
+          <div className="address-section">
+            <h3 className="section-title">Address Information</h3>
+
+            <div className="form-group">
+              <label htmlFor="street_address">Street Address *</label>
+              <input
+                type="text"
+                id="street_address"
+                name="street_address"
+                value={formData.street_address}
+                onChange={handleChange}
+                required
+                placeholder="House/Building No., Street Name"
+              />
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="barangay">Barangay *</label>
+                <input
+                  type="text"
+                  id="barangay"
+                  name="barangay"
+                  value={formData.barangay}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter barangay"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="city">City/Municipality *</label>
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter city/municipality"
+                />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="province">Province *</label>
+                <input
+                  type="text"
+                  id="province"
+                  name="province"
+                  value={formData.province}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter province"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="postal_code">Postal Code</label>
+                <input
+                  type="text"
+                  id="postal_code"
+                  name="postal_code"
+                  value={formData.postal_code}
+                  onChange={handleChange}
+                  placeholder="Enter postal code"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="form-group">
