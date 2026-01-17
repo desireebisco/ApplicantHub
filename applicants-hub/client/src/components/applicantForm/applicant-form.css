@@ -32,13 +32,10 @@ body {
 /* Form Page Container */
 .form-page-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 3rem 2rem;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* Form Section */
@@ -90,28 +87,73 @@ body {
 .applicant-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
-/* Address Section */
-.address-section {
+/* Form Sections */
+.form-section {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 12px var(--shadow);
+}
+
+.section-title-main {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.3rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.subsection-title {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  color: var(--primary-dark);
+  margin: 1.5rem 0 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.section-description {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+/* Emergency Section Styling */
+.emergency-section {
+  background: linear-gradient(
+    135deg,
+    rgba(232, 147, 92, 0.03) 0%,
+    rgba(45, 90, 61, 0.03) 100%
+  );
+  border-left: 4px solid var(--accent);
+}
+
+/* Document Section Styling */
+.document-section {
   background: linear-gradient(
     135deg,
     rgba(45, 90, 61, 0.03) 0%,
     rgba(232, 147, 92, 0.03) 100%
   );
-  padding: 1.5rem;
-  border-radius: 12px;
   border-left: 4px solid var(--primary);
 }
 
-.section-title {
-  font-family: "Unbounded", sans-serif;
-  font-size: 1rem;
-  color: var(--primary);
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.document-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.document-grid .full-width {
+  grid-column: 1 / -1;
 }
 
 /* Form Rows for side-by-side fields */
@@ -121,8 +163,17 @@ body {
   gap: 1rem;
 }
 
-@media (max-width: 640px) {
-  .form-row {
+.form-row-three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .form-row,
+  .form-row-three {
+    grid-template-columns: 1fr;
+  }
+
+  .document-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -131,7 +182,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  animation: slideIn 0.4s ease-out;
 }
 
 @keyframes slideIn {
@@ -188,6 +238,59 @@ body {
 .form-group textarea::placeholder {
   color: var(--text-light);
   opacity: 0.6;
+}
+
+/* Readonly Field */
+.readonly-field {
+  background: var(--border) !important;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* File Input Styling */
+.file-input {
+  padding: 0.75rem;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  background: var(--background);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input:hover {
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+.file-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  border-style: solid;
+  box-shadow: 0 0 0 4px rgba(232, 147, 92, 0.1);
+}
+
+.file-name {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: "Unbounded", sans-serif;
+}
+
+.field-hint {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+/* Remarks Textarea */
+.remarks-textarea {
+  min-height: 120px;
+  font-family: "Newsreader", Georgia, serif;
 }
 
 /* Custom Field Styling */
@@ -390,15 +493,17 @@ body {
 @media (max-width: 640px) {
   .form-page-container {
     padding: 1.5rem 1rem;
-    align-items: flex-start;
-    padding-top: 3rem;
   }
 
   .form-section {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem;
   }
 
   .form-header h1 {
     font-size: 2rem;
+  }
+
+  .section-title-main {
+    font-size: 1.1rem;
   }
 }
