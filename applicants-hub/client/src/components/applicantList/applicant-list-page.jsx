@@ -5,8 +5,14 @@ import "./applicant-list-page.css";
 import { useApplicants } from "../../state/ApplicantContext";
 
 export default function ApplicantListPage() {
-  const { applicants, customFields, deleteApplicant, loading, error } =
-    useApplicants();
+  const {
+    applicants,
+    customFields,
+    deleteApplicant,
+    updateApplicant,
+    loading,
+    error,
+  } = useApplicants();
   const navigate = useNavigate();
 
   // Table controls
@@ -15,6 +21,12 @@ export default function ApplicantListPage() {
   const [sortDirection, setSortDirection] = useState("asc");
   const [filterField, setFilterField] = useState("all");
   const [isDeleting, setIsDeleting] = useState(null);
+
+  // Edit modal state
+  const [editingApplicant, setEditingApplicant] = useState(null);
+  const [editFormData, setEditFormData] = useState({});
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateError, setUpdateError] = useState(null);
 
   // Sort handler
   const handleSort = (field) => {
@@ -80,6 +92,45 @@ export default function ApplicantListPage() {
       if (!result.success) {
         alert("Failed to delete applicant: " + result.error);
       }
+    }
+  };
+
+  const handleEdit = (applicant) => {
+    setEditingApplicant(applicant);
+    setEditFormData({ ...applicant });
+    setUpdateError(null);
+  };
+
+  const handleEditChange = (field, value) => {
+    setEditFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleCancelEdit = () => {
+    setEditingApplicant(null);
+    setEditFormData({});
+    setUpdateError(null);
+  };
+
+  const handleSaveEdit = async () => {
+    setIsUpdating(true);
+    setUpdateError(null);
+
+    try {
+      const result = await updateApplicant(editingApplicant.id, editFormData);
+
+      if (result.success) {
+        setEditingApplicant(null);
+        setEditFormData({});
+      } else {
+        setUpdateError(result.error || "Failed to update applicant");
+      }
+    } catch (error) {
+      setUpdateError("An unexpected error occurred");
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -188,6 +239,13 @@ export default function ApplicantListPage() {
                       <tr key={applicant.id}>
                         <td className="action-cell">
                           <button
+                            onClick={() => handleEdit(applicant)}
+                            className="edit-table-btn"
+                            title="Edit applicant"
+                          >
+                            ✏️
+                          </button>
+                          <button
                             onClick={() => handleDelete(applicant.id)}
                             className="delete-table-btn"
                             title="Delete applicant"
@@ -217,6 +275,70 @@ export default function ApplicantListPage() {
           </>
         )}
       </div>
+
+      {/* Edit Modal */}
+      {editingApplicant && (
+        <div className="modal-overlay" onClick={handleCancelEdit}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Edit Applicant</h2>
+              <button onClick={handleCancelEdit} className="modal-close-btn">
+                ×
+              </button>
+            </div>
+
+            <div className="modal-body">
+              {updateError && (
+                <div className="error-message-modal">✗ {updateError}</div>
+              )}
+
+              <div className="edit-form">
+                {allFields.map((field) => (
+                  <div key={field.id} className="edit-form-group">
+                    <label htmlFor={`edit-${field.id}`}>{field.label}</label>
+                    {field.type === "textarea" ? (
+                      <textarea
+                        id={`edit-${field.id}`}
+                        value={editFormData[field.id] || ""}
+                        onChange={(e) =>
+                          handleEditChange(field.id, e.target.value)
+                        }
+                        rows="3"
+                      />
+                    ) : (
+                      <input
+                        type={field.type || "text"}
+                        id={`edit-${field.id}`}
+                        value={editFormData[field.id] || ""}
+                        onChange={(e) =>
+                          handleEditChange(field.id, e.target.value)
+                        }
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button
+                onClick={handleCancelEdit}
+                className="modal-cancel-btn"
+                disabled={isUpdating}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveEdit}
+                className="modal-save-btn"
+                disabled={isUpdating}
+              >
+                {isUpdating ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

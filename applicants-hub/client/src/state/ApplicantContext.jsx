@@ -68,6 +68,22 @@ export function ApplicantProvider({ children }) {
     }
   };
 
+  const updateApplicant = async (id, updatedData) => {
+    try {
+      const response = await applicantAPI.updateApplicant(id, updatedData);
+
+      if (response.success) {
+        setApplicants((prev) =>
+          prev.map((app) => (app.id === id ? response.data : app))
+        );
+        return { success: true, data: response.data };
+      }
+    } catch (err) {
+      console.error("Error updating applicant:", err);
+      return { success: false, error: err.message };
+    }
+  };
+
   const addCustomField = async (field) => {
     try {
       const response = await applicantAPI.createCustomField(field);
@@ -120,6 +136,7 @@ export function ApplicantProvider({ children }) {
         loading,
         error,
         addApplicant,
+        updateApplicant,
         deleteApplicant,
         addCustomField,
         removeCustomField,
