@@ -18,16 +18,77 @@ export default function ApplicantDetailPage() {
   // Find the applicant by ID
   const applicant = applicants.find((app) => app.id === parseInt(id));
 
-  // Get all fields (standard + custom)
-  const allFields = [
-    { id: "name", label: "Name", icon: "👤" },
+  // Get all fields organized by section
+  const personalFields = [
+    { id: "first_name", label: "First Name", icon: "👤" },
+    { id: "middle_name", label: "Middle Name", icon: "👤" },
+    { id: "last_name", label: "Last Name", icon: "👤" },
+    { id: "gender", label: "Gender", icon: "⚧️" },
+    { id: "date_of_birth", label: "Date of Birth", icon: "📅" },
+    { id: "age", label: "Age", icon: "🎂" },
+    { id: "nationality", label: "Nationality", icon: "🌍" },
+    { id: "civil_status", label: "Civil Status", icon: "💍" },
+  ];
+
+  const jobFields = [
+    { id: "job_applied_for", label: "Job Applied For", icon: "💼" },
+    {
+      id: "country_of_destination",
+      label: "Country of Destination",
+      icon: "✈️",
+    },
+  ];
+
+  const contactFields = [
+    { id: "contact_number_1", label: "Contact Number 1", icon: "📞" },
+    { id: "contact_number_2", label: "Contact Number 2", icon: "📞" },
+    { id: "email", label: "Email", icon: "📧" },
+    { id: "social_media_fb", label: "Facebook", icon: "👥" },
+    { id: "social_media_tiktok", label: "TikTok", icon: "🎵" },
+    { id: "social_media_ig", label: "Instagram", icon: "📸" },
+  ];
+
+  const addressFields = [
     { id: "street_address", label: "Street Address", icon: "🏠" },
     { id: "barangay", label: "Barangay", icon: "📍" },
     { id: "city", label: "City/Municipality", icon: "🏙️" },
     { id: "province", label: "Province", icon: "🗺️" },
     { id: "postal_code", label: "Postal Code", icon: "📮" },
-    { id: "birthday", label: "Birthday", icon: "🎂" },
-    ...customFields.map((field) => ({ ...field, icon: "📝" })),
+  ];
+
+  const emergencyFields = [
+    { id: "emergency_contact_name", label: "Contact Person", icon: "🆘" },
+    { id: "emergency_contact_number", label: "Contact Number", icon: "📞" },
+    { id: "emergency_contact_fb", label: "Facebook", icon: "👥" },
+    { id: "emergency_contact_tiktok", label: "TikTok", icon: "🎵" },
+    { id: "emergency_contact_ig", label: "Instagram", icon: "📸" },
+    { id: "emergency_contact_street", label: "Street", icon: "🏠" },
+    { id: "emergency_contact_barangay", label: "Barangay", icon: "📍" },
+    { id: "emergency_contact_city", label: "City", icon: "🏙️" },
+    { id: "emergency_contact_province", label: "Province", icon: "🗺️" },
+    { id: "emergency_contact_postal", label: "Postal Code", icon: "📮" },
+  ];
+
+  const workFields = [
+    { id: "work_country", label: "Country", icon: "🌍" },
+    { id: "years_of_experience", label: "Years of Experience", icon: "⏱️" },
+    { id: "job_position", label: "Position", icon: "💼" },
+  ];
+
+  const remarksFields = [{ id: "remarks", label: "Remarks", icon: "📝" }];
+
+  const allFieldSections = [
+    { title: "Job Information", fields: jobFields },
+    { title: "Personal Information", fields: personalFields },
+    { title: "Contact Information", fields: contactFields },
+    { title: "Address", fields: addressFields },
+    { title: "Emergency Contact", fields: emergencyFields },
+    { title: "Work Experience", fields: workFields },
+    { title: "Additional Notes", fields: remarksFields },
+    {
+      title: "Custom Fields",
+      fields: customFields.map((field) => ({ ...field, icon: "📝" })),
+    },
   ];
 
   // If applicant not found
@@ -88,9 +149,10 @@ export default function ApplicantDetailPage() {
   };
 
   const handleDelete = async () => {
+    const fullName = `${applicant.first_name} ${applicant.last_name}`;
     if (
       window.confirm(
-        `Are you sure you want to delete ${applicant.name}? This action cannot be undone.`
+        `Are you sure you want to delete ${fullName}? This action cannot be undone.`
       )
     ) {
       setIsDeleting(true);
@@ -139,10 +201,15 @@ export default function ApplicantDetailPage() {
         <div className="applicant-detail-card">
           <div className="card-header">
             <div className="applicant-avatar">
-              {applicant.name.charAt(0).toUpperCase()}
+              {applicant.first_name
+                ? applicant.first_name.charAt(0).toUpperCase()
+                : "A"}
             </div>
             <div className="applicant-title">
-              <h1>{applicant.name}</h1>
+              <h1>
+                {applicant.first_name} {applicant.middle_name}{" "}
+                {applicant.last_name}
+              </h1>
               <p className="applicant-id">ID: {applicant.id}</p>
             </div>
           </div>
@@ -153,44 +220,58 @@ export default function ApplicantDetailPage() {
 
           {/* Fields Display/Edit */}
           <div className="applicant-fields">
-            {allFields.map((field) => {
-              const value = applicant[field.id];
-
-              // Skip fields that don't have values and we're not editing
-              if (!value && !isEditing) return null;
+            {allFieldSections.map((section) => {
+              // Skip empty sections
+              const hasData = section.fields.some(
+                (field) => applicant[field.id]
+              );
+              if (!hasData && !isEditing) return null;
 
               return (
-                <div key={field.id} className="detail-field">
-                  <div className="field-label">
-                    <span className="field-icon">{field.icon}</span>
-                    {field.label}
-                  </div>
+                <div key={section.title} className="field-section">
+                  <h3 className="field-section-title">{section.title}</h3>
+                  {section.fields.map((field) => {
+                    const value = applicant[field.id];
 
-                  {isEditing ? (
-                    <div className="field-edit">
-                      {field.type === "textarea" ? (
-                        <textarea
-                          value={editFormData[field.id] || ""}
-                          onChange={(e) =>
-                            handleEditChange(field.id, e.target.value)
-                          }
-                          rows="3"
-                          className="field-textarea"
-                        />
-                      ) : (
-                        <input
-                          type={field.type || "text"}
-                          value={editFormData[field.id] || ""}
-                          onChange={(e) =>
-                            handleEditChange(field.id, e.target.value)
-                          }
-                          className="field-input"
-                        />
-                      )}
-                    </div>
-                  ) : (
-                    <div className="field-value">{value || "-"}</div>
-                  )}
+                    // Skip fields that don't have values and we're not editing
+                    if (!value && !isEditing) return null;
+
+                    return (
+                      <div key={field.id} className="detail-field">
+                        <div className="field-label">
+                          <span className="field-icon">{field.icon}</span>
+                          {field.label}
+                        </div>
+
+                        {isEditing ? (
+                          <div className="field-edit">
+                            {field.type === "textarea" ||
+                            field.id === "remarks" ? (
+                              <textarea
+                                value={editFormData[field.id] || ""}
+                                onChange={(e) =>
+                                  handleEditChange(field.id, e.target.value)
+                                }
+                                rows="3"
+                                className="field-textarea"
+                              />
+                            ) : (
+                              <input
+                                type={field.type || "text"}
+                                value={editFormData[field.id] || ""}
+                                onChange={(e) =>
+                                  handleEditChange(field.id, e.target.value)
+                                }
+                                className="field-input"
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <div className="field-value">{value || "-"}</div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               );
             })}

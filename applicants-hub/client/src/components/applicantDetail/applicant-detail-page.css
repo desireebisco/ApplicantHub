@@ -180,7 +180,21 @@
 /* Fields */
 .applicant-fields {
   display: grid;
-  gap: 2rem;
+  gap: 2.5rem;
+}
+
+.field-section {
+  border-left: 4px solid var(--primary);
+  padding-left: 1.5rem;
+}
+
+.field-section-title {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .detail-field {
@@ -188,15 +202,12 @@
   grid-template-columns: 200px 1fr;
   gap: 2rem;
   align-items: start;
-  padding: 1.5rem;
-  background: var(--background);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.detail-field:hover {
-  background: #f5f2ed;
-  transform: translateX(5px);
+.detail-field:last-child {
+  border-bottom: none;
 }
 
 .field-label {

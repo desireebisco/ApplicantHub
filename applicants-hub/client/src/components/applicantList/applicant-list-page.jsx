@@ -37,15 +37,18 @@ export default function ApplicantListPage() {
     }
   };
 
-  // Get all fields (standard + custom)
+  // Get all fields (standard + custom) - showing key fields only in table
   const allFields = [
-    { id: "name", label: "Name" },
-    { id: "street_address", label: "Street Address" },
-    { id: "barangay", label: "Barangay" },
+    { id: "first_name", label: "First Name" },
+    { id: "last_name", label: "Last Name" },
+    { id: "job_applied_for", label: "Job Applied" },
+    { id: "country_of_destination", label: "Destination" },
+    { id: "gender", label: "Gender" },
+    { id: "age", label: "Age" },
+    { id: "contact_number_1", label: "Contact" },
+    { id: "email", label: "Email" },
     { id: "city", label: "City" },
-    { id: "province", label: "Province" },
-    { id: "postal_code", label: "Postal Code" },
-    { id: "birthday", label: "Birthday" },
+    { id: "civil_status", label: "Status" },
     ...customFields,
   ];
 
@@ -259,7 +262,7 @@ export default function ApplicantListPage() {
                         </td>
                         {allFields.map((field) => (
                           <td key={field.id}>
-                            {field.id === "name" ? (
+                            {field.id === "first_name" ? (
                               <button
                                 onClick={() =>
                                   navigate(`/applicants/${applicant.id}`)

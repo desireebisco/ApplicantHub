@@ -5,70 +5,267 @@
 let mockApplicants = [
   {
     id: 1,
-    name: "John Doe",
+    // Job Information
+    job_applied_for: "Domestic Helper",
+    country_of_destination: "Hong Kong",
+
+    // Personal Information
+    first_name: "Maria",
+    middle_name: "Santos",
+    last_name: "Cruz",
+    gender: "Female",
+    date_of_birth: "1990-05-15",
+    age: "34",
+    nationality: "Filipino",
+    civil_status: "Single",
+
+    // Contact Information
+    contact_number_1: "+63 917 123 4567",
+    contact_number_2: "+63 918 987 6543",
+    email: "maria.cruz@email.com",
+    social_media_fb: "mariacruz",
+    social_media_tiktok: "@maria_c",
+    social_media_ig: "maria_cruz",
+
+    // Address
     street_address: "123 Main Street",
     barangay: "San Isidro",
     city: "Makati City",
     province: "Metro Manila",
     postal_code: "1200",
-    birthday: "1990-05-15",
-    phone_number: "+63 917 123 4567",
-    email: "john.doe@example.com",
+
+    // Emergency Contact
+    emergency_contact_name: "Juan Cruz",
+    emergency_contact_number: "+63 919 111 2222",
+    emergency_contact_fb: "juancruz",
+    emergency_contact_tiktok: "",
+    emergency_contact_ig: "juan.cruz",
+    emergency_contact_street: "123 Main Street",
+    emergency_contact_barangay: "San Isidro",
+    emergency_contact_city: "Makati City",
+    emergency_contact_province: "Metro Manila",
+    emergency_contact_postal: "1200",
+
+    // Work Experience
+    work_country: "Hong Kong",
+    years_of_experience: "2.5",
+    job_position: "Domestic Helper",
+
+    // Remarks
+    remarks:
+      "Available for immediate deployment. Has experience with elderly care.",
   },
   {
     id: 2,
-    name: "Jane Smith",
+    // Job Information
+    job_applied_for: "Construction Worker",
+    country_of_destination: "Saudi Arabia",
+
+    // Personal Information
+    first_name: "Jose",
+    middle_name: "Reyes",
+    last_name: "Dela Cruz",
+    gender: "Male",
+    date_of_birth: "1985-08-22",
+    age: "39",
+    nationality: "Filipino",
+    civil_status: "Married",
+
+    // Contact Information
+    contact_number_1: "+63 920 234 5678",
+    contact_number_2: "+63 921 345 6789",
+    email: "jose.delacruz@email.com",
+    social_media_fb: "jose.delacruz",
+    social_media_tiktok: "",
+    social_media_ig: "jose_dc",
+
+    // Address
     street_address: "456 Oak Avenue",
     barangay: "Poblacion",
     city: "Quezon City",
     province: "Metro Manila",
     postal_code: "1100",
-    birthday: "1985-08-22",
-    phone_number: "+63 918 987 6543",
-    email: "jane.smith@example.com",
+
+    // Emergency Contact
+    emergency_contact_name: "Rosa Dela Cruz",
+    emergency_contact_number: "+63 922 333 4444",
+    emergency_contact_fb: "rosa.delacruz",
+    emergency_contact_tiktok: "@rosa_dc",
+    emergency_contact_ig: "",
+    emergency_contact_street: "456 Oak Avenue",
+    emergency_contact_barangay: "Poblacion",
+    emergency_contact_city: "Quezon City",
+    emergency_contact_province: "Metro Manila",
+    emergency_contact_postal: "1100",
+
+    // Work Experience
+    work_country: "Saudi Arabia",
+    years_of_experience: "5",
+    job_position: "Mason",
+
+    // Remarks
+    remarks:
+      "Experienced mason with TESDA certification. Willing to work overtime.",
   },
   {
     id: 3,
-    name: "Michael Johnson",
+    // Job Information
+    job_applied_for: "Nurse",
+    country_of_destination: "United Kingdom",
+
+    // Personal Information
+    first_name: "Anna",
+    middle_name: "Marie",
+    last_name: "Santos",
+    gender: "Female",
+    date_of_birth: "1992-12-10",
+    age: "32",
+    nationality: "Filipino",
+    civil_status: "Single",
+
+    // Contact Information
+    contact_number_1: "+63 923 456 7890",
+    contact_number_2: "",
+    email: "anna.santos@email.com",
+    social_media_fb: "anna.m.santos",
+    social_media_tiktok: "@nurse_anna",
+    social_media_ig: "anna_santos_rn",
+
+    // Address
     street_address: "789 Pine Road",
     barangay: "Barangka",
     city: "Mandaluyong City",
     province: "Metro Manila",
     postal_code: "1550",
-    birthday: "1992-12-10",
-    phone_number: "+63 919 456 7890",
-    email: "michael.j@example.com",
+
+    // Emergency Contact
+    emergency_contact_name: "Pedro Santos",
+    emergency_contact_number: "+63 924 555 6666",
+    emergency_contact_fb: "pedro.santos",
+    emergency_contact_tiktok: "",
+    emergency_contact_ig: "",
+    emergency_contact_street: "789 Pine Road",
+    emergency_contact_barangay: "Barangka",
+    emergency_contact_city: "Mandaluyong City",
+    emergency_contact_province: "Metro Manila",
+    emergency_contact_postal: "1550",
+
+    // Work Experience
+    work_country: "Philippines",
+    years_of_experience: "4",
+    job_position: "Staff Nurse",
+
+    // Remarks
+    remarks:
+      "Registered nurse with ICU experience. IELTS qualified (Band 7.0).",
   },
   {
     id: 4,
-    name: "Emily Davis",
+    // Job Information
+    job_applied_for: "Factory Worker",
+    country_of_destination: "Taiwan",
+
+    // Personal Information
+    first_name: "Michelle",
+    middle_name: "Joy",
+    last_name: "Garcia",
+    gender: "Female",
+    date_of_birth: "1988-03-18",
+    age: "36",
+    nationality: "Filipino",
+    civil_status: "Married",
+
+    // Contact Information
+    contact_number_1: "+63 925 678 9012",
+    contact_number_2: "+63 926 789 0123",
+    email: "michelle.garcia@email.com",
+    social_media_fb: "michelle.garcia88",
+    social_media_tiktok: "@michelle_g",
+    social_media_ig: "michelle.garcia",
+
+    // Address
     street_address: "321 Elm Street",
     barangay: "Ugong",
     city: "Pasig City",
     province: "Metro Manila",
     postal_code: "1604",
-    birthday: "1988-03-18",
-    phone_number: "+63 920 234 5678",
-    email: "emily.davis@example.com",
+
+    // Emergency Contact
+    emergency_contact_name: "Roberto Garcia",
+    emergency_contact_number: "+63 927 890 1234",
+    emergency_contact_fb: "roberto.garcia",
+    emergency_contact_tiktok: "",
+    emergency_contact_ig: "rob_garcia",
+    emergency_contact_street: "321 Elm Street",
+    emergency_contact_barangay: "Ugong",
+    emergency_contact_city: "Pasig City",
+    emergency_contact_province: "Metro Manila",
+    emergency_contact_postal: "1604",
+
+    // Work Experience
+    work_country: "Taiwan",
+    years_of_experience: "3",
+    job_position: "Production Operator",
+
+    // Remarks
+    remarks:
+      "Experienced in electronics manufacturing. Contract completed, seeking new placement.",
   },
   {
     id: 5,
-    name: "David Wilson",
+    // Job Information
+    job_applied_for: "Caregiver",
+    country_of_destination: "Canada",
+
+    // Personal Information
+    first_name: "Linda",
+    middle_name: "Rose",
+    last_name: "Ramos",
+    gender: "Female",
+    date_of_birth: "1995-07-25",
+    age: "29",
+    nationality: "Filipino",
+    civil_status: "Single",
+
+    // Contact Information
+    contact_number_1: "+63 928 901 2345",
+    contact_number_2: "",
+    email: "linda.ramos@email.com",
+    social_media_fb: "linda.rose.ramos",
+    social_media_tiktok: "@linda_care",
+    social_media_ig: "linda_ramos",
+
+    // Address
     street_address: "654 Maple Drive",
     barangay: "Kapitolyo",
     city: "Pasig City",
     province: "Metro Manila",
     postal_code: "1603",
-    birthday: "1995-07-25",
-    phone_number: "+63 921 345 6789",
-    email: "david.wilson@example.com",
+
+    // Emergency Contact
+    emergency_contact_name: "Carmen Ramos",
+    emergency_contact_number: "+63 929 012 3456",
+    emergency_contact_fb: "carmen.ramos",
+    emergency_contact_tiktok: "@carmen_r",
+    emergency_contact_ig: "",
+    emergency_contact_street: "654 Maple Drive",
+    emergency_contact_barangay: "Kapitolyo",
+    emergency_contact_city: "Pasig City",
+    emergency_contact_province: "Metro Manila",
+    emergency_contact_postal: "1603",
+
+    // Work Experience
+    work_country: "Philippines",
+    years_of_experience: "1.5",
+    job_position: "Caregiver",
+
+    // Remarks
+    remarks:
+      "Certified caregiver (NC II). Experience with children and elderly. Available immediately.",
   },
 ];
 
-let mockCustomFields = [
-  { id: "phone_number", label: "Phone Number", type: "tel" },
-  { id: "email", label: "Email", type: "email" },
-];
+let mockCustomFields = [];
 
 // Simulate network delay
 const delay = (ms = 500) => new Promise((resolve) => setTimeout(resolve, ms));
