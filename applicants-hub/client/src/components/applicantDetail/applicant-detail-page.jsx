@@ -15,6 +15,9 @@ export default function ApplicantDetailPage() {
   const [updateError, setUpdateError] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Document viewer state
+  const [viewingDocument, setViewingDocument] = useState(null);
+
   // Find the applicant by ID
   const applicant = applicants.find((app) => app.id === parseInt(id));
 
@@ -165,6 +168,14 @@ export default function ApplicantDetailPage() {
         setIsDeleting(false);
       }
     }
+  };
+
+  const handleViewDocument = (document, type) => {
+    setViewingDocument({ ...document, type });
+  };
+
+  const handleCloseViewer = () => {
+    setViewingDocument(null);
   };
 
   return (
@@ -319,9 +330,23 @@ export default function ApplicantDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="document-download" title="Download">
-                    ⬇️
-                  </button>
+                  <div className="document-actions">
+                    <button
+                      className="document-view"
+                      onClick={() =>
+                        handleViewDocument(
+                          applicant.documents.resume,
+                          "Resume/CV"
+                        )
+                      }
+                      title="View"
+                    >
+                      👁️
+                    </button>
+                    <button className="document-download" title="Download">
+                      ⬇️
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -342,9 +367,23 @@ export default function ApplicantDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="document-download" title="Download">
-                    ⬇️
-                  </button>
+                  <div className="document-actions">
+                    <button
+                      className="document-view"
+                      onClick={() =>
+                        handleViewDocument(
+                          applicant.documents.application_form,
+                          "Application Form"
+                        )
+                      }
+                      title="View"
+                    >
+                      👁️
+                    </button>
+                    <button className="document-download" title="Download">
+                      ⬇️
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -364,9 +403,23 @@ export default function ApplicantDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="document-download" title="Download">
-                    ⬇️
-                  </button>
+                  <div className="document-actions">
+                    <button
+                      className="document-view"
+                      onClick={() =>
+                        handleViewDocument(
+                          applicant.documents.ids_passport,
+                          "IDs and Passport"
+                        )
+                      }
+                      title="View"
+                    >
+                      👁️
+                    </button>
+                    <button className="document-download" title="Download">
+                      ⬇️
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -387,9 +440,23 @@ export default function ApplicantDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="document-download" title="Download">
-                    ⬇️
-                  </button>
+                  <div className="document-actions">
+                    <button
+                      className="document-view"
+                      onClick={() =>
+                        handleViewDocument(
+                          applicant.documents.medical_results,
+                          "Medical Results"
+                        )
+                      }
+                      title="View"
+                    >
+                      👁️
+                    </button>
+                    <button className="document-download" title="Download">
+                      ⬇️
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -410,9 +477,23 @@ export default function ApplicantDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="document-download" title="Download">
-                    ⬇️
-                  </button>
+                  <div className="document-actions">
+                    <button
+                      className="document-view"
+                      onClick={() =>
+                        handleViewDocument(
+                          applicant.documents.signed_contracts,
+                          "Signed Contracts"
+                        )
+                      }
+                      title="View"
+                    >
+                      👁️
+                    </button>
+                    <button className="document-download" title="Download">
+                      ⬇️
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -432,9 +513,23 @@ export default function ApplicantDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="document-download" title="Download">
-                    ⬇️
-                  </button>
+                  <div className="document-actions">
+                    <button
+                      className="document-view"
+                      onClick={() =>
+                        handleViewDocument(
+                          applicant.documents.visa_copy,
+                          "Visa Copy"
+                        )
+                      }
+                      title="View"
+                    >
+                      👁️
+                    </button>
+                    <button className="document-download" title="Download">
+                      ⬇️
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -455,9 +550,23 @@ export default function ApplicantDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="document-download" title="Download">
-                    ⬇️
-                  </button>
+                  <div className="document-actions">
+                    <button
+                      className="document-view"
+                      onClick={() =>
+                        handleViewDocument(
+                          applicant.documents.other_documents,
+                          "Other Documents"
+                        )
+                      }
+                      title="View"
+                    >
+                      👁️
+                    </button>
+                    <button className="document-download" title="Download">
+                      ⬇️
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -492,6 +601,92 @@ export default function ApplicantDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Document Viewer Modal */}
+      {viewingDocument && (
+        <div className="viewer-overlay" onClick={handleCloseViewer}>
+          <div className="viewer-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="viewer-header">
+              <h3>{viewingDocument.type}</h3>
+              <button onClick={handleCloseViewer} className="viewer-close">
+                ×
+              </button>
+            </div>
+            <div className="viewer-info">
+              <span className="viewer-filename">📄 {viewingDocument.name}</span>
+              <span className="viewer-size">{viewingDocument.size}</span>
+            </div>
+            <div className="viewer-content">
+              {viewingDocument.type.includes("pdf") ||
+              viewingDocument.name.toLowerCase().endsWith(".pdf") ? (
+                <div className="pdf-viewer">
+                  <div className="pdf-placeholder">
+                    <div className="pdf-icon">📄</div>
+                    <h3>PDF Document Preview</h3>
+                    <p className="pdf-name">{viewingDocument.name}</p>
+                    <p className="pdf-message">
+                      In a production environment, this would display the PDF
+                      using a viewer like PDF.js or an iframe.
+                    </p>
+                    <div className="pdf-sample">
+                      <div className="pdf-page">
+                        <div className="pdf-header">
+                          <strong>{viewingDocument.type}</strong>
+                        </div>
+                        <div className="pdf-body">
+                          <p>This is a preview placeholder for:</p>
+                          <p>
+                            <strong>{viewingDocument.name}</strong>
+                          </p>
+                          <p>File size: {viewingDocument.size}</p>
+                          <p>Upload date: {viewingDocument.uploadDate}</p>
+                          <br />
+                          <p>
+                            The actual document content would appear here when
+                            connected to a real backend with file storage.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : viewingDocument.name
+                  .toLowerCase()
+                  .match(/\.(jpg|jpeg|png|gif)$/i) ? (
+                <div className="image-viewer">
+                  <div className="image-placeholder">
+                    <div className="image-icon">🖼️</div>
+                    <h3>Image Preview</h3>
+                    <p className="image-name">{viewingDocument.name}</p>
+                    <p className="image-message">
+                      The image would be displayed here in a production
+                      environment.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="document-viewer">
+                  <div className="document-placeholder">
+                    <div className="doc-icon">📄</div>
+                    <h3>Document Preview</h3>
+                    <p className="doc-name">{viewingDocument.name}</p>
+                    <p className="doc-message">
+                      Document preview not available in mock mode. In
+                      production, this would show the document content.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="viewer-footer">
+              <button onClick={handleCloseViewer} className="viewer-close-btn">
+                Close
+              </button>
+              <button className="viewer-download-btn">⬇️ Download</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
