@@ -54,6 +54,42 @@ let mockApplicants = [
     // Remarks
     remarks:
       "Available for immediate deployment. Has experience with elderly care.",
+
+    // Documents
+    documents: {
+      resume: {
+        name: "Maria_Cruz_Resume.pdf",
+        size: "245 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-10",
+      },
+      application_form: {
+        name: "Application_Form.pdf",
+        size: "189 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-10",
+      },
+      ids_passport: {
+        name: "Passport_IDs.pdf",
+        size: "512 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-10",
+      },
+      medical_results: {
+        name: "Medical_Exam_Results.pdf",
+        size: "324 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-11",
+      },
+      signed_contracts: null,
+      visa_copy: null,
+      other_documents: {
+        name: "OWWA_Certificate.pdf",
+        size: "156 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-12",
+      },
+    },
   },
   {
     id: 2,
@@ -106,6 +142,47 @@ let mockApplicants = [
     // Remarks
     remarks:
       "Experienced mason with TESDA certification. Willing to work overtime.",
+
+    // Documents
+    documents: {
+      resume: {
+        name: "Jose_DelaCruz_CV.pdf",
+        size: "198 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-08",
+      },
+      application_form: {
+        name: "Jose_Application.pdf",
+        size: "201 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-08",
+      },
+      ids_passport: {
+        name: "Jose_Passport.pdf",
+        size: "487 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-08",
+      },
+      medical_results: {
+        name: "Medical_Certificate.pdf",
+        size: "298 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-09",
+      },
+      signed_contracts: {
+        name: "Employment_Contract.pdf",
+        size: "412 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-15",
+      },
+      visa_copy: null,
+      other_documents: {
+        name: "TESDA_Certificate.pdf",
+        size: "234 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-08",
+      },
+    },
   },
   {
     id: 3,
@@ -158,6 +235,42 @@ let mockApplicants = [
     // Remarks
     remarks:
       "Registered nurse with ICU experience. IELTS qualified (Band 7.0).",
+
+    // Documents
+    documents: {
+      resume: {
+        name: "Anna_Santos_RN_CV.pdf",
+        size: "312 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-05",
+      },
+      application_form: {
+        name: "UK_Nursing_Application.pdf",
+        size: "256 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-05",
+      },
+      ids_passport: {
+        name: "Anna_Passport_IDs.pdf",
+        size: "578 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-05",
+      },
+      medical_results: {
+        name: "Health_Screening.pdf",
+        size: "445 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-06",
+      },
+      signed_contracts: null,
+      visa_copy: null,
+      other_documents: {
+        name: "PRC_License_IELTS.pdf",
+        size: "389 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-05",
+      },
+    },
   },
   {
     id: 4,
@@ -210,6 +323,47 @@ let mockApplicants = [
     // Remarks
     remarks:
       "Experienced in electronics manufacturing. Contract completed, seeking new placement.",
+
+    // Documents
+    documents: {
+      resume: {
+        name: "Michelle_Garcia_Resume.pdf",
+        size: "187 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-12",
+      },
+      application_form: {
+        name: "Taiwan_Factory_Application.pdf",
+        size: "223 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-12",
+      },
+      ids_passport: {
+        name: "Michelle_Documents.pdf",
+        size: "534 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-12",
+      },
+      medical_results: {
+        name: "Medical_Exam.pdf",
+        size: "367 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-13",
+      },
+      signed_contracts: {
+        name: "Previous_Contract.pdf",
+        size: "456 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-12",
+      },
+      visa_copy: {
+        name: "Taiwan_Visa.pdf",
+        size: "289 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-14",
+      },
+      other_documents: null,
+    },
   },
   {
     id: 5,
@@ -262,6 +416,37 @@ let mockApplicants = [
     // Remarks
     remarks:
       "Certified caregiver (NC II). Experience with children and elderly. Available immediately.",
+
+    // Documents
+    documents: {
+      resume: {
+        name: "Linda_Ramos_CV.pdf",
+        size: "176 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-14",
+      },
+      application_form: {
+        name: "Canada_Caregiver_App.pdf",
+        size: "234 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-14",
+      },
+      ids_passport: {
+        name: "Linda_ID_Passport.pdf",
+        size: "498 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-14",
+      },
+      medical_results: null,
+      signed_contracts: null,
+      visa_copy: null,
+      other_documents: {
+        name: "NC2_PDOS_Certificates.pdf",
+        size: "312 KB",
+        type: "application/pdf",
+        uploadDate: "2024-01-14",
+      },
+    },
   },
 ];
 

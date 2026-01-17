@@ -359,6 +359,116 @@
   color: var(--text);
 }
 
+/* Documents Section */
+.documents-card {
+  margin-top: 2rem;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.documents-title {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--primary);
+}
+
+.documents-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.document-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--background);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.document-item:hover {
+  background: #f5f2ed;
+  border-color: var(--primary);
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.document-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.document-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.document-name {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.document-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.document-size {
+  font-family: "Unbounded", sans-serif;
+}
+
+.document-date {
+  font-family: "Newsreader", Georgia, serif;
+}
+
+.document-download {
+  background: var(--primary);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.document-download:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+.no-documents {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-light);
+  font-style: italic;
+}
+
 /* Not Found State */
 .detail-not-found {
   text-align: center;
@@ -459,6 +569,28 @@
   .save-edit-btn {
     width: 100%;
   }
+
+  .documents-card {
+    padding: 1.5rem;
+  }
+
+  .documents-title {
+    font-size: 1.3rem;
+  }
+
+  .document-item {
+    flex-wrap: wrap;
+  }
+
+  .document-info {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .document-download {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -470,5 +602,14 @@
   .delete-btn-detail {
     padding: 0.625rem 1rem;
     font-size: 0.8rem;
+  }
+
+  .document-name {
+    font-size: 0.85rem;
+  }
+
+  .document-meta {
+    flex-direction: column;
+    gap: 0.25rem;
   }
 }

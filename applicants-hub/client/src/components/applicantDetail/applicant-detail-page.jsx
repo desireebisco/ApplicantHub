@@ -298,6 +298,184 @@ export default function ApplicantDetailPage() {
           )}
         </div>
 
+        {/* Documents Section */}
+        {applicant.documents && (
+          <div className="documents-card">
+            <h2 className="documents-title">📄 Uploaded Documents</h2>
+            <div className="documents-grid">
+              {applicant.documents.resume && (
+                <div className="document-item">
+                  <div className="document-icon">📄</div>
+                  <div className="document-info">
+                    <div className="document-name">
+                      {applicant.documents.resume.name}
+                    </div>
+                    <div className="document-meta">
+                      <span className="document-size">
+                        {applicant.documents.resume.size}
+                      </span>
+                      <span className="document-date">
+                        Uploaded: {applicant.documents.resume.uploadDate}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="document-download" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              )}
+
+              {applicant.documents.application_form && (
+                <div className="document-item">
+                  <div className="document-icon">📋</div>
+                  <div className="document-info">
+                    <div className="document-name">
+                      {applicant.documents.application_form.name}
+                    </div>
+                    <div className="document-meta">
+                      <span className="document-size">
+                        {applicant.documents.application_form.size}
+                      </span>
+                      <span className="document-date">
+                        Uploaded:{" "}
+                        {applicant.documents.application_form.uploadDate}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="document-download" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              )}
+
+              {applicant.documents.ids_passport && (
+                <div className="document-item">
+                  <div className="document-icon">🪪</div>
+                  <div className="document-info">
+                    <div className="document-name">
+                      {applicant.documents.ids_passport.name}
+                    </div>
+                    <div className="document-meta">
+                      <span className="document-size">
+                        {applicant.documents.ids_passport.size}
+                      </span>
+                      <span className="document-date">
+                        Uploaded: {applicant.documents.ids_passport.uploadDate}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="document-download" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              )}
+
+              {applicant.documents.medical_results && (
+                <div className="document-item">
+                  <div className="document-icon">🏥</div>
+                  <div className="document-info">
+                    <div className="document-name">
+                      {applicant.documents.medical_results.name}
+                    </div>
+                    <div className="document-meta">
+                      <span className="document-size">
+                        {applicant.documents.medical_results.size}
+                      </span>
+                      <span className="document-date">
+                        Uploaded:{" "}
+                        {applicant.documents.medical_results.uploadDate}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="document-download" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              )}
+
+              {applicant.documents.signed_contracts && (
+                <div className="document-item">
+                  <div className="document-icon">📝</div>
+                  <div className="document-info">
+                    <div className="document-name">
+                      {applicant.documents.signed_contracts.name}
+                    </div>
+                    <div className="document-meta">
+                      <span className="document-size">
+                        {applicant.documents.signed_contracts.size}
+                      </span>
+                      <span className="document-date">
+                        Uploaded:{" "}
+                        {applicant.documents.signed_contracts.uploadDate}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="document-download" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              )}
+
+              {applicant.documents.visa_copy && (
+                <div className="document-item">
+                  <div className="document-icon">✈️</div>
+                  <div className="document-info">
+                    <div className="document-name">
+                      {applicant.documents.visa_copy.name}
+                    </div>
+                    <div className="document-meta">
+                      <span className="document-size">
+                        {applicant.documents.visa_copy.size}
+                      </span>
+                      <span className="document-date">
+                        Uploaded: {applicant.documents.visa_copy.uploadDate}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="document-download" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              )}
+
+              {applicant.documents.other_documents && (
+                <div className="document-item">
+                  <div className="document-icon">📦</div>
+                  <div className="document-info">
+                    <div className="document-name">
+                      {applicant.documents.other_documents.name}
+                    </div>
+                    <div className="document-meta">
+                      <span className="document-size">
+                        {applicant.documents.other_documents.size}
+                      </span>
+                      <span className="document-date">
+                        Uploaded:{" "}
+                        {applicant.documents.other_documents.uploadDate}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="document-download" title="Download">
+                    ⬇️
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {!applicant.documents.resume &&
+              !applicant.documents.application_form &&
+              !applicant.documents.ids_passport &&
+              !applicant.documents.medical_results &&
+              !applicant.documents.signed_contracts &&
+              !applicant.documents.visa_copy &&
+              !applicant.documents.other_documents && (
+                <div className="no-documents">
+                  <p>No documents uploaded yet</p>
+                </div>
+              )}
+          </div>
+        )}
+
         {/* Metadata */}
         <div className="applicant-metadata">
           <div className="metadata-item">
