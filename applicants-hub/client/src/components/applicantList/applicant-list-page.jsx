@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useApplicants } from "./ApplicantContext";
 import "./applicant-list-page.css";
 import { useApplicants } from "../../state/ApplicantContext";
 
@@ -255,7 +254,20 @@ export default function ApplicantListPage() {
                           </button>
                         </td>
                         {allFields.map((field) => (
-                          <td key={field.id}>{applicant[field.id] || "-"}</td>
+                          <td key={field.id}>
+                            {field.id === "name" ? (
+                              <button
+                                onClick={() =>
+                                  navigate(`/applicants/${applicant.id}`)
+                                }
+                                className="name-link"
+                              >
+                                {applicant[field.id] || "-"}
+                              </button>
+                            ) : (
+                              applicant[field.id] || "-"
+                            )}
+                          </td>
                         ))}
                       </tr>
                     ))

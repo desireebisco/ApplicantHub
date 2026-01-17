@@ -3,6 +3,7 @@ import "./App.css";
 import ApplicantsForm from "./components/applicantForm/applicant-form";
 import ApplicantListPage from "./components/applicantList/applicant-list-page";
 import { ApplicantProvider } from "./state/ApplicantContext";
+import ApplicantDetailPage from "./components/applicantDetail/applicant-detail-page";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<ApplicantsForm />} />
             <Route path="/applicants" element={<ApplicantListPage />} />
+            <Route path="/applicants/:id" element={<ApplicantDetailPage />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,0 +1,463 @@
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Newsreader:ital,wght@0,300;0,400;1,300&display=swap");
+
+.detail-page-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 3rem;
+}
+
+.detail-content {
+  width: 100%;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.back-btn-simple {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn-simple:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateX(-5px);
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-hover);
+}
+
+.delete-btn-detail {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: var(--danger);
+  border: 2px solid var(--danger);
+  border-radius: 10px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-btn-detail:hover:not(:disabled) {
+  background: var(--danger);
+  color: white;
+}
+
+.delete-btn-detail:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Applicant Card */
+.applicant-detail-card {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 4px 24px var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.applicant-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Unbounded", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  box-shadow: 0 4px 16px var(--shadow-hover);
+}
+
+.applicant-title h1 {
+  font-family: "Unbounded", sans-serif;
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.applicant-id {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.error-message-detail {
+  background: var(--danger);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fields */
+.applicant-fields {
+  display: grid;
+  gap: 2rem;
+}
+
+.detail-field {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding: 1.5rem;
+  background: var(--background);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.detail-field:hover {
+  background: #f5f2ed;
+  transform: translateX(5px);
+}
+
+.field-label {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.field-icon {
+  font-size: 1.5rem;
+}
+
+.field-value {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.field-edit {
+  width: 100%;
+}
+
+.field-input,
+.field-textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
+  transition: all 0.3s ease;
+}
+
+.field-input:focus,
+.field-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(232, 147, 92, 0.1);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Edit Actions */
+.edit-actions {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border);
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.cancel-edit-btn {
+  padding: 0.875rem 1.75rem;
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-edit-btn:hover:not(:disabled) {
+  background: var(--background);
+  border-color: var(--text-light);
+}
+
+.cancel-edit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.save-edit-btn {
+  padding: 0.875rem 1.75rem;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-light) 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(232, 147, 92, 0.3);
+}
+
+.save-edit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(232, 147, 92, 0.4);
+}
+
+.save-edit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Metadata */
+.applicant-metadata {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.metadata-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.metadata-label {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metadata-value {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* Not Found State */
+.detail-not-found {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.not-found-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.3;
+}
+
+.detail-not-found h1 {
+  font-family: "Unbounded", sans-serif;
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.detail-not-found p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.back-btn {
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(45, 90, 61, 0.3);
+}
+
+.back-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(45, 90, 61, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .detail-page-container {
+    padding: 2rem 1rem;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .applicant-detail-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .applicant-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+  }
+
+  .applicant-title h1 {
+    font-size: 2rem;
+  }
+
+  .detail-field {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .edit-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-edit-btn,
+  .save-edit-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .applicant-title h1 {
+    font-size: 1.6rem;
+  }
+
+  .edit-btn,
+  .delete-btn-detail {
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+  }
+}
