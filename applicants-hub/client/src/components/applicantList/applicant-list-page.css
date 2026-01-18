@@ -493,13 +493,13 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-.modal-content {
+.modal-content-large {
   background: var(--surface);
   border-radius: 20px;
   box-shadow: 0 8px 32px var(--shadow-hover);
-  max-width: 600px;
+  max-width: 900px;
   width: 100%;
-  max-height: 80vh;
+  max-height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -559,6 +559,82 @@
   flex: 1;
 }
 
+.modal-body-large {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+  max-height: calc(90vh - 180px);
+}
+
+.edit-form-comprehensive {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.edit-section {
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+}
+
+.edit-section-title {
+  font-family: "Unbounded", sans-serif;
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.edit-subsection-title {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.95rem;
+  color: var(--primary-dark);
+  margin: 1.5rem 0 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.section-description {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.edit-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.edit-form-row-three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .edit-form-row,
+  .edit-form-row-three {
+    grid-template-columns: 1fr;
+  }
+}
+
+.readonly-field {
+  background: var(--border) !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .error-message-modal {
   background: var(--danger);
   color: white;
@@ -613,6 +689,111 @@
 .edit-form-group textarea {
   resize: vertical;
   min-height: 80px;
+}
+
+/* Document Upload Styles */
+.edit-documents-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.edit-document-full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 640px) {
+  .edit-documents-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.edit-document-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.edit-document-item label {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.uploaded-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.edit-file-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-file-upload:hover {
+  border-color: var(--accent);
+  background: var(--background);
+}
+
+.upload-placeholder {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.edit-doc-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 10px;
+  gap: 0.5rem;
+}
+
+.doc-preview-name {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-preview-delete {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.doc-preview-delete:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 .modal-footer {

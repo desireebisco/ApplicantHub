@@ -376,6 +376,22 @@
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.edit-mode-badge {
+  font-size: 0.75rem;
+  background: var(--accent);
+  color: white;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .documents-grid {
@@ -418,6 +434,16 @@
   min-width: 0;
 }
 
+.document-label {
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .document-name {
   font-family: "Unbounded", sans-serif;
   font-size: 0.95rem;
@@ -427,6 +453,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.document-empty {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-style: italic;
+  margin-top: 0.25rem;
 }
 
 .document-meta {
@@ -448,6 +482,51 @@
   display: flex;
   gap: 0.5rem;
   flex-shrink: 0;
+}
+
+.document-edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.document-upload-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.document-upload-btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+.document-delete-btn {
+  background: var(--danger);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.document-delete-btn:hover {
+  background: #a53929;
+  transform: scale(1.1);
 }
 
 .document-view {
@@ -667,6 +746,12 @@
   margin-bottom: 0.5rem;
 }
 
+.pdf-body .print-note {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
 /* Image Viewer Styles */
 .image-viewer,
 .document-viewer {
@@ -714,9 +799,15 @@
   border-top: 2px solid var(--border);
   display: flex;
   gap: 1rem;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   background: var(--background);
   border-radius: 0 0 20px 20px;
+}
+
+.viewer-actions-group {
+  display: flex;
+  gap: 1rem;
 }
 
 .viewer-close-btn {
@@ -736,6 +827,28 @@
   background: var(--border);
 }
 
+.viewer-print-btn {
+  padding: 0.875rem 1.75rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewer-print-btn:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(232, 147, 92, 0.3);
+}
+
 .viewer-download-btn {
   padding: 0.875rem 1.75rem;
   background: var(--primary);
@@ -747,11 +860,15 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .viewer-download-btn:hover {
   background: var(--primary-dark);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 90, 61, 0.3);
 }
 
 /* Not Found State */
@@ -903,10 +1020,17 @@
   }
 
   .viewer-footer {
-    flex-direction: column-reverse;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .viewer-actions-group {
+    width: 100%;
+    flex-direction: column;
   }
 
   .viewer-close-btn,
+  .viewer-print-btn,
   .viewer-download-btn {
     width: 100%;
   }
@@ -940,5 +1064,92 @@
   .image-placeholder h3,
   .document-placeholder h3 {
     font-size: 1.2rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  /* Hide everything except the viewer modal */
+  body * {
+    visibility: hidden;
+  }
+
+  .viewer-modal,
+  .viewer-modal * {
+    visibility: visible;
+  }
+
+  .viewer-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  /* Hide interactive elements when printing */
+  .viewer-close,
+  .viewer-footer {
+    display: none !important;
+  }
+
+  /* Optimize header for print */
+  .viewer-header {
+    background: var(--primary);
+    color: black;
+    border-radius: 0;
+    padding: 1rem;
+    border-bottom: 3px solid var(--primary);
+  }
+
+  .viewer-header h3 {
+    color: white;
+  }
+
+  /* Optimize content for print */
+  .viewer-content {
+    background: white;
+    padding: 1rem;
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* Optimize info section */
+  .viewer-info {
+    background: white;
+    border: 1px solid #ddd;
+    page-break-after: avoid;
+  }
+
+  /* PDF preview optimizations */
+  .pdf-sample {
+    box-shadow: none;
+    border: 2px solid #ddd;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure good contrast for printing */
+  .pdf-body,
+  .pdf-message,
+  .image-message,
+  .doc-message {
+    color: black;
+  }
+
+  /* Page breaks */
+  .viewer-header {
+    page-break-after: avoid;
+  }
+
+  .viewer-info {
+    page-break-after: avoid;
+  }
+
+  /* Remove backgrounds for better print quality */
+  .viewer-overlay {
+    background: white !important;
   }
 }

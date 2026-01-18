@@ -18,6 +18,9 @@ export default function ApplicantDetailPage() {
   // Document viewer state
   const [viewingDocument, setViewingDocument] = useState(null);
 
+  // Document edit state
+  const [editDocuments, setEditDocuments] = useState({});
+
   // Find the applicant by ID
   const applicant = applicants.find((app) => app.id === parseInt(id));
 
@@ -94,6 +97,78 @@ export default function ApplicantDetailPage() {
     },
   ];
 
+  // Helper function to render document items
+  const renderDocumentItem = (
+    docKey,
+    icon,
+    label,
+    accept = ".pdf,.doc,.docx,image/*"
+  ) => {
+    const currentDoc = editDocuments[docKey] || applicant.documents[docKey];
+    const shouldShow = isEditing || currentDoc;
+
+    if (!shouldShow) return null;
+
+    return (
+      <div className="document-item" key={docKey}>
+        <div className="document-icon">{icon}</div>
+        <div className="document-info">
+          <div className="document-label">{label}</div>
+          {currentDoc ? (
+            <>
+              <div className="document-name">{currentDoc.name}</div>
+              <div className="document-meta">
+                <span className="document-size">{currentDoc.size}</span>
+                <span className="document-date">
+                  Uploaded: {currentDoc.uploadDate}
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="document-empty">No file uploaded</div>
+          )}
+        </div>
+        {isEditing ? (
+          <div className="document-edit-actions">
+            <label className="document-upload-btn" title="Upload new file">
+              📤
+              <input
+                type="file"
+                onChange={(e) => handleDocumentUpload(e, docKey)}
+                accept={accept}
+                style={{ display: "none" }}
+              />
+            </label>
+            {currentDoc && (
+              <button
+                className="document-delete-btn"
+                onClick={() => handleDeleteDocument(docKey)}
+                title="Delete file"
+              >
+                🗑️
+              </button>
+            )}
+          </div>
+        ) : (
+          currentDoc && (
+            <div className="document-actions">
+              <button
+                className="document-view"
+                onClick={() => handleViewDocument(currentDoc, label)}
+                title="View"
+              >
+                👁️
+              </button>
+              <button className="document-download" title="Download">
+                ⬇️
+              </button>
+            </div>
+          )
+        )}
+      </div>
+    );
+  };
+
   // If applicant not found
   if (!applicant) {
     return (
@@ -114,6 +189,7 @@ export default function ApplicantDetailPage() {
 
   const handleEdit = () => {
     setEditFormData({ ...applicant });
+    setEditDocuments({ ...applicant.documents });
     setIsEditing(true);
     setUpdateError(null);
   };
@@ -121,6 +197,7 @@ export default function ApplicantDetailPage() {
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditFormData({});
+    setEditDocuments({});
     setUpdateError(null);
   };
 
@@ -136,11 +213,17 @@ export default function ApplicantDetailPage() {
     setUpdateError(null);
 
     try {
-      const result = await updateApplicant(applicant.id, editFormData);
+      const updatedData = {
+        ...editFormData,
+        documents: editDocuments,
+      };
+
+      const result = await updateApplicant(applicant.id, updatedData);
 
       if (result.success) {
         setIsEditing(false);
         setEditFormData({});
+        setEditDocuments({});
       } else {
         setUpdateError(result.error || "Failed to update applicant");
       }
@@ -176,6 +259,37 @@ export default function ApplicantDetailPage() {
 
   const handleCloseViewer = () => {
     setViewingDocument(null);
+  };
+
+  const handlePrintDocument = () => {
+    // In production, this would print the actual document
+    // For now, we'll use the browser's print dialog with the preview
+    window.print();
+  };
+
+  const handleDocumentUpload = (e, docType) => {
+    const file = e.target.files[0];
+    if (file) {
+      setEditDocuments((prev) => ({
+        ...prev,
+        [docType]: {
+          name: file.name,
+          size: `${(file.size / 1024).toFixed(0)} KB`,
+          type: file.type,
+          uploadDate: new Date().toISOString().split("T")[0],
+          file: file,
+        },
+      }));
+    }
+  };
+
+  const handleDeleteDocument = (docType) => {
+    if (window.confirm("Are you sure you want to delete this document?")) {
+      setEditDocuments((prev) => ({
+        ...prev,
+        [docType]: null,
+      }));
+    }
   };
 
   return (
@@ -312,262 +426,52 @@ export default function ApplicantDetailPage() {
         {/* Documents Section */}
         {applicant.documents && (
           <div className="documents-card">
-            <h2 className="documents-title">📄 Uploaded Documents</h2>
+            <h2 className="documents-title">
+              📄 Uploaded Documents
+              {isEditing && <span className="edit-mode-badge">Edit Mode</span>}
+            </h2>
             <div className="documents-grid">
-              {applicant.documents.resume && (
-                <div className="document-item">
-                  <div className="document-icon">📄</div>
-                  <div className="document-info">
-                    <div className="document-name">
-                      {applicant.documents.resume.name}
-                    </div>
-                    <div className="document-meta">
-                      <span className="document-size">
-                        {applicant.documents.resume.size}
-                      </span>
-                      <span className="document-date">
-                        Uploaded: {applicant.documents.resume.uploadDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="document-actions">
-                    <button
-                      className="document-view"
-                      onClick={() =>
-                        handleViewDocument(
-                          applicant.documents.resume,
-                          "Resume/CV"
-                        )
-                      }
-                      title="View"
-                    >
-                      👁️
-                    </button>
-                    <button className="document-download" title="Download">
-                      ⬇️
-                    </button>
-                  </div>
-                </div>
+              {renderDocumentItem(
+                "resume",
+                "📄",
+                "Resume / CV",
+                ".pdf,.doc,.docx,image/*"
               )}
-
-              {applicant.documents.application_form && (
-                <div className="document-item">
-                  <div className="document-icon">📋</div>
-                  <div className="document-info">
-                    <div className="document-name">
-                      {applicant.documents.application_form.name}
-                    </div>
-                    <div className="document-meta">
-                      <span className="document-size">
-                        {applicant.documents.application_form.size}
-                      </span>
-                      <span className="document-date">
-                        Uploaded:{" "}
-                        {applicant.documents.application_form.uploadDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="document-actions">
-                    <button
-                      className="document-view"
-                      onClick={() =>
-                        handleViewDocument(
-                          applicant.documents.application_form,
-                          "Application Form"
-                        )
-                      }
-                      title="View"
-                    >
-                      👁️
-                    </button>
-                    <button className="document-download" title="Download">
-                      ⬇️
-                    </button>
-                  </div>
-                </div>
+              {renderDocumentItem(
+                "application_form",
+                "📋",
+                "Application Form",
+                ".pdf,.doc,.docx,image/*"
               )}
-
-              {applicant.documents.ids_passport && (
-                <div className="document-item">
-                  <div className="document-icon">🪪</div>
-                  <div className="document-info">
-                    <div className="document-name">
-                      {applicant.documents.ids_passport.name}
-                    </div>
-                    <div className="document-meta">
-                      <span className="document-size">
-                        {applicant.documents.ids_passport.size}
-                      </span>
-                      <span className="document-date">
-                        Uploaded: {applicant.documents.ids_passport.uploadDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="document-actions">
-                    <button
-                      className="document-view"
-                      onClick={() =>
-                        handleViewDocument(
-                          applicant.documents.ids_passport,
-                          "IDs and Passport"
-                        )
-                      }
-                      title="View"
-                    >
-                      👁️
-                    </button>
-                    <button className="document-download" title="Download">
-                      ⬇️
-                    </button>
-                  </div>
-                </div>
+              {renderDocumentItem(
+                "ids_passport",
+                "🪪",
+                "IDs and Passport",
+                ".pdf,image/*"
               )}
-
-              {applicant.documents.medical_results && (
-                <div className="document-item">
-                  <div className="document-icon">🏥</div>
-                  <div className="document-info">
-                    <div className="document-name">
-                      {applicant.documents.medical_results.name}
-                    </div>
-                    <div className="document-meta">
-                      <span className="document-size">
-                        {applicant.documents.medical_results.size}
-                      </span>
-                      <span className="document-date">
-                        Uploaded:{" "}
-                        {applicant.documents.medical_results.uploadDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="document-actions">
-                    <button
-                      className="document-view"
-                      onClick={() =>
-                        handleViewDocument(
-                          applicant.documents.medical_results,
-                          "Medical Results"
-                        )
-                      }
-                      title="View"
-                    >
-                      👁️
-                    </button>
-                    <button className="document-download" title="Download">
-                      ⬇️
-                    </button>
-                  </div>
-                </div>
+              {renderDocumentItem(
+                "medical_results",
+                "🏥",
+                "Medical Results",
+                ".pdf,.doc,.docx,image/*"
               )}
-
-              {applicant.documents.signed_contracts && (
-                <div className="document-item">
-                  <div className="document-icon">📝</div>
-                  <div className="document-info">
-                    <div className="document-name">
-                      {applicant.documents.signed_contracts.name}
-                    </div>
-                    <div className="document-meta">
-                      <span className="document-size">
-                        {applicant.documents.signed_contracts.size}
-                      </span>
-                      <span className="document-date">
-                        Uploaded:{" "}
-                        {applicant.documents.signed_contracts.uploadDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="document-actions">
-                    <button
-                      className="document-view"
-                      onClick={() =>
-                        handleViewDocument(
-                          applicant.documents.signed_contracts,
-                          "Signed Contracts"
-                        )
-                      }
-                      title="View"
-                    >
-                      👁️
-                    </button>
-                    <button className="document-download" title="Download">
-                      ⬇️
-                    </button>
-                  </div>
-                </div>
+              {renderDocumentItem(
+                "signed_contracts",
+                "📝",
+                "Signed Contracts",
+                ".pdf,.doc,.docx"
               )}
-
-              {applicant.documents.visa_copy && (
-                <div className="document-item">
-                  <div className="document-icon">✈️</div>
-                  <div className="document-info">
-                    <div className="document-name">
-                      {applicant.documents.visa_copy.name}
-                    </div>
-                    <div className="document-meta">
-                      <span className="document-size">
-                        {applicant.documents.visa_copy.size}
-                      </span>
-                      <span className="document-date">
-                        Uploaded: {applicant.documents.visa_copy.uploadDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="document-actions">
-                    <button
-                      className="document-view"
-                      onClick={() =>
-                        handleViewDocument(
-                          applicant.documents.visa_copy,
-                          "Visa Copy"
-                        )
-                      }
-                      title="View"
-                    >
-                      👁️
-                    </button>
-                    <button className="document-download" title="Download">
-                      ⬇️
-                    </button>
-                  </div>
-                </div>
+              {renderDocumentItem(
+                "visa_copy",
+                "✈️",
+                "Visa Copy",
+                ".pdf,image/*"
               )}
-
-              {applicant.documents.other_documents && (
-                <div className="document-item">
-                  <div className="document-icon">📦</div>
-                  <div className="document-info">
-                    <div className="document-name">
-                      {applicant.documents.other_documents.name}
-                    </div>
-                    <div className="document-meta">
-                      <span className="document-size">
-                        {applicant.documents.other_documents.size}
-                      </span>
-                      <span className="document-date">
-                        Uploaded:{" "}
-                        {applicant.documents.other_documents.uploadDate}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="document-actions">
-                    <button
-                      className="document-view"
-                      onClick={() =>
-                        handleViewDocument(
-                          applicant.documents.other_documents,
-                          "Other Documents"
-                        )
-                      }
-                      title="View"
-                    >
-                      👁️
-                    </button>
-                    <button className="document-download" title="Download">
-                      ⬇️
-                    </button>
-                  </div>
-                </div>
+              {renderDocumentItem(
+                "other_documents",
+                "📦",
+                "Other Documents",
+                ".pdf,.doc,.docx,.xls,.xlsx,image/*,video/*"
               )}
             </div>
 
@@ -634,16 +538,38 @@ export default function ApplicantDetailPage() {
                           <strong>{viewingDocument.type}</strong>
                         </div>
                         <div className="pdf-body">
-                          <p>This is a preview placeholder for:</p>
                           <p>
-                            <strong>{viewingDocument.name}</strong>
+                            <strong>Document Information</strong>
                           </p>
+                          <p>Filename: {viewingDocument.name}</p>
                           <p>File size: {viewingDocument.size}</p>
                           <p>Upload date: {viewingDocument.uploadDate}</p>
+                          <p>Document type: {viewingDocument.type}</p>
                           <br />
                           <p>
+                            <strong>Applicant:</strong> {applicant.first_name}{" "}
+                            {applicant.middle_name} {applicant.last_name}
+                          </p>
+                          <p>
+                            <strong>Job Applied:</strong>{" "}
+                            {applicant.job_applied_for}
+                          </p>
+                          <p>
+                            <strong>Destination:</strong>{" "}
+                            {applicant.country_of_destination}
+                          </p>
+                          <br />
+                          <p className="print-note">
                             The actual document content would appear here when
                             connected to a real backend with file storage.
+                          </p>
+                          <br />
+                          <p className="print-note">
+                            <em>
+                              This is a preview placeholder. Use the Print
+                              button to print this information, or Download to
+                              save the actual file.
+                            </em>
                           </p>
                         </div>
                       </div>
@@ -682,7 +608,21 @@ export default function ApplicantDetailPage() {
               <button onClick={handleCloseViewer} className="viewer-close-btn">
                 Close
               </button>
-              <button className="viewer-download-btn">⬇️ Download</button>
+              <div className="viewer-actions-group">
+                <button
+                  onClick={handlePrintDocument}
+                  className="viewer-print-btn"
+                  title="Print document"
+                >
+                  🖨️ Print
+                </button>
+                <button
+                  className="viewer-download-btn"
+                  title="Download document"
+                >
+                  ⬇️ Download
+                </button>
+              </div>
             </div>
           </div>
         </div>
